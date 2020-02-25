@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useTable, useSortBy, useFilters, useColumnOrder } from "react-table";
-import { motion, AnimatePresence } from "framer-motion";
-import matchSorter from "match-sorter";
 import axios from "axios";
+import logo from "../assets/elisaviihde.png";
 
 const TableWrapper = styled.div`
   padding: 1rem;
@@ -15,10 +13,7 @@ const TableWrapper = styled.div`
   .divTableRow {
     display: table-row;
   }
-  .divTableHeading {
-    background-color: #eee;
-    display: table-header-group;
-  }
+
   .divTableCell,
   .divTableHead {
     border: 1px solid #999999;
@@ -29,6 +24,8 @@ const TableWrapper = styled.div`
     background-color: #eee;
     display: table-header-group;
     font-weight: bold;
+    background-color:#fff;
+    color: #0068F0;;
   }
   .divTableFoot {
     background-color: #eee;
@@ -62,7 +59,10 @@ function ProgrammeTable() {
   return (
     <TableWrapper>
       <div>
-        <h1 id="title">Live Programmes</h1>
+        <div className="header">
+          <img src={logo} alt="Elisa Viihde"/>
+          <h1 id="title">Live Programmes</h1>
+        </div>
         <div className="divTableHead">
           <div className="divTableHeading">Channel</div>
         </div>
@@ -89,6 +89,15 @@ function ProgrammeTable() {
                     <div className="divTableCell"> {column.startTime} </div>
                     <div className="divTableCell"> {column.endTime} </div>
                     <div className="divTableCell"> {column.length} </div>
+                    <div
+                      className="divTableCell"
+                      value={column.isPopular}
+                      style={
+                        column.isPopular === true
+                          ? { backgroundColor: "blue" }
+                          : {}
+                      }
+                    ></div>
                   </div>
                 </div>
               </div>
