@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import logo from "../assets/elisaviihde.png";
@@ -17,10 +17,9 @@ function ProgrammeTable() {
       schedule: result.data.schedule
     });
   };
-
-  if (data.schedule.length === 0) {
+  useEffect(() => {
     FetchData(setData);
-  }
+  })
 
   const handleFilter = schedule => {
     return data.filterString
