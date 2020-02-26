@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import logo from "../assets/elisaviihde.png";
@@ -8,18 +8,18 @@ function ProgrammeTable() {
     schedule: [],
     filterString: ""
   });
-  const FetchData = async setData => {
-    const result = await axios(
-      "https://rest-api.elisaviihde.fi/rest/epg/schedule/live"
-    );
-    setData({
-      ...data,
-      schedule: result.data.schedule
-    });
-  };
   useEffect(() => {
+    const FetchData = async () => {
+      const result = await axios(
+        "https://rest-api.elisaviihde.fi/rest/epg/schedule/live"
+      );
+      setData({
+        ...data,
+        schedule: result.data.schedule
+      });
+    };
     FetchData(setData);
-  })
+  }, [data]);
 
   const handleFilter = schedule => {
     return data.filterString
@@ -49,7 +49,10 @@ function ProgrammeTable() {
           <h1 id="title">Live Programmes</h1>
         </HeaderWrapper>
 
-        <Filter placeholder="Search channel or programme" onChange={handleFilterValue} />
+        <Filter
+          placeholder="Search channel or programme"
+          onChange={handleFilterValue}
+        />
 
         <div className="divTable">
           <div className="divTableRow">
